@@ -18,6 +18,7 @@ var lightBlue = "#C7E3EA";
 var darkBlue = "#15C5E0";
 var garfield = $("<img>").attr("src", "./assets/images/garfield.png").css("max-width", "25vw").css("padding", "10px");
 var eventBox;
+var timeBlock;
 // create container for timeblocks
 // create for-loop that generates timeblocks 8am-6pm
 
@@ -51,45 +52,60 @@ day.css("font", headingFont).css("font-size", "max(4vw, 25px");
 date.css("font", headingFont).css("font-size", "max(3vw, 15px");
 mainEl.css("width", "100%");
 dateSection.css("padding", "10px").css("background-color", orange).css("color", blue);
-scheduleSection.css("width", "100%").css("font", bodyFont).css("display", "flex").css("flex-flow", "column wrap").css("justify-content", "center").css("align-items", "center");
+scheduleSection.css("width", "100%").css("font", bodyFont).css("display", "flex").css("flex-flow", "column wrap").css("justify-content", "center").css("align-items", "center").css("overflow", "hidden").css("margin-top", "5px").css("margin-bottom", "5px").css("row-gap", "25px");
 footerEl.css("width", "100%").css("background-color", blue);
 footerText.css("color", orange).css("font", headingFont).css("font-size", "max(1vw, 10px").css("padding", "10px");
 
 // Arrays
-// var hours = [];
+var hours = [];
+
+$(document).ready(function() {
+    // Creates array items
+    for (let i = 8; i < 19; i++) {
+        hours.push(i);
+    };
+
+    hours.forEach((element) => {
+        var timeBlock = $("<div>").appendTo(scheduleSection).css("width", "100vw").css("height", "100%").css("display", "flex").css("flex-flow", "row no-wrap").css("justify-content", "center").css("align-items", "center").css("align-content", "center");
+
+        var hourBox = $("<section>").appendTo(timeBlock).text(dayjs().hour(element).format("h" + "a")).css("flex-grow", "1").css("width", "25vw").css("padding", "5px").css("height", "100%").css("color", orange);
+
+        var eventBox = $("<section>").appendTo(timeBlock).css("width", "50vw").css("flex-grow", "2").css("padding", "5px").css("height", "100%").css("color", blue).attr("contenteditable", "true").css("outline", "0px").css("overflow-y", "hidden");
+
+        var saveBox = $("<section>").appendTo(timeBlock).css("width", "25vw").css("padding", "5px").css("height", "100%").css("color", orange);
+
+        var saveButton = $("<button>").appendTo(saveBox).text("💾").css("background", orange).css("border-radius", "5px").css("border", "0px").css("padding", "10px");
+
+        eventBox.on("keydown paste", function(event) {
+            if($(this).text().length === 30 && event.keyCode != 8) {
+            event.preventDefault();
+            };
+        });
+
+        saveButton.click(function() {
+            var content = document.querySelector("[contenteditable]");
+            var text = content.textContent;
+            localStorage.setItem("toDo " + element, text);
+            console.log("text for hour " + element + ": " + text);
+        });
+
+        console.log("Hour " + element + " added.");
+    });
+
+    console.log("Current hours: " + hours);
+});
+
+
+    // Save Button
+
+
+
 
 // Functions
-function createTimeBlocks() {
-var array = [];
-for (let i = 8; i < 19; i++) {
-    var timeBlock = $("<div>");
-    timeBlock.appendTo(scheduleSection).css("width", "100vw").css("height", "10vh").css("display", "flex").css("flex-flow", "row no-wrap").css("justify-content", "center").css("align-items", "center").css("align-content", "center");
-    var hourBox = $("<section>").appendTo(timeBlock).text(dayjs().hour(i).format("h" + "a")).css("flex-grow", "1").css("width", "25vw").css("padding", "5px").css("height", "100%").css("line-height", "10vh").css("color", orange);
-    var eventBox = $("<section>").appendTo(timeBlock).css("width", "50vw").css("flex-grow", "2").css("padding", "5px").css("height", "100%").css("line-height", "10vh").css("color", blue);
-    eventBox.innerHTML = "Type event here";
-    eventBox.attr("contenteditable", "true").css("outline", "0px");
-    var saveBox = $("<section>").appendTo(timeBlock).css("width", "25vw").css("padding", "5px").css("height", "100%").css("line-height", "10vh").css("color", orange);
-    var saveButton = $("<button>").appendTo(saveBox).text("💾").css("background", orange).css("border-radius", "5px").css("border", "0px").css("padding", "10px");
-    
-    saveButton.click(function(event) {
-        event.preventDefault();
-        var content = document.querySelector('[contenteditable]');
-        var text = content.textContent;
-        array.push(text);
-        localStorage.setItem("toDo" + i, array[i]);
-        console.log("Current array: " + array);
-        console.log("text for hour " + i + ": " + text);
-    })
-    if(localStorage.getItem("toDo")) {
-        eventBox.textContent = localStorage.getItem("toDo" + i);
-    }
-    console.log("Hour " + i + " added.");
-    }
-}
 
 // Event Listeners
 
 // Media Queries
 
 // Run Function
-createTimeBlocks();
+// createTimeBlocks();
