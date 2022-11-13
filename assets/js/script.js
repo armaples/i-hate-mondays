@@ -19,6 +19,8 @@ var darkBlue = "#15C5E0";
 var garfield = $("<img>").attr("src", "./assets/images/garfield.png").css("max-width", "25vw").css("padding", "10px");
 var eventBox;
 var timeBlock;
+var present = dayjs().hour();
+console.log(present);
 // create container for timeblocks
 // create for-loop that generates timeblocks 8am-6pm
 
@@ -52,7 +54,7 @@ day.css("font", headingFont).css("font-size", "max(4vw, 25px");
 date.css("font", headingFont).css("font-size", "max(3vw, 15px");
 mainEl.css("width", "100%");
 dateSection.css("padding", "10px").css("background-color", orange).css("color", blue);
-scheduleSection.css("width", "100%").css("font", bodyFont).css("display", "flex").css("flex-flow", "column wrap").css("justify-content", "center").css("align-items", "center").css("overflow", "hidden").css("margin-top", "5px").css("margin-bottom", "5px").css("row-gap", "25px");
+scheduleSection.css("width", "100%").css("font", bodyFont).css("display", "flex").css("flex-flow", "column wrap").css("justify-content", "center").css("align-items", "center").css("overflow", "hidden").css("margin-top", "5px").css("margin-bottom", "5px");
 footerEl.css("width", "100%").css("background-color", blue);
 footerText.css("color", orange).css("font", headingFont).css("font-size", "max(1vw, 10px").css("padding", "10px");
 
@@ -70,7 +72,7 @@ $(document).ready(function() {
 
         var hourBox = $("<section>").appendTo(timeBlock).text(dayjs().hour(element).format("h" + "a")).css("flex-grow", "1").css("width", "25vw").css("padding", "5px").css("height", "100%").css("color", orange);
 
-        var eventBox = $("<section>").appendTo(timeBlock).css("width", "50vw").css("flex-grow", "2").css("padding", "5px").css("height", "100%").css("color", blue).attr("contenteditable", "true").css("outline", "0px").css("overflow-y", "hidden");
+        var eventBox = $("<section>").appendTo(timeBlock).css("width", "50vw").css("flex-grow", "2").css("padding", "5px").css("height", "100%").css("color", "white").attr("contenteditable", "true").css("outline", "0px").css("overflow-y", "hidden").css("border", "1px solid" + orange);
 
         var saveBox = $("<section>").appendTo(timeBlock).css("width", "25vw").css("padding", "5px").css("height", "100%").css("color", orange);
 
@@ -81,6 +83,16 @@ $(document).ready(function() {
             event.preventDefault();
             };
         });
+
+        var thisTime = parseInt(element);
+
+        if (thisTime < present) {
+            eventBox.css("background-color", lightBlue);
+        } else if (thisTime === present) {
+            eventBox.css("background-color", orange).css("color", blue).css("border-color", blue);
+        } else {
+            eventBox.css("background-color", lightOrange);
+        }
 
         saveButton.click(function() {
             var content = document.querySelector("[contenteditable]");
