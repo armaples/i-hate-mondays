@@ -51,7 +51,7 @@ day.css("font", headingFont).css("font-size", "max(4vw, 25px");
 date.css("font", headingFont).css("font-size", "max(3vw, 15px");
 mainEl.css("width", "100%");
 dateSection.css("padding", "10px").css("background-color", orange).css("color", blue);
-scheduleSection.css("width", "100%").css("font", bodyFont).css("display", "flex").css("flex-flow", "column wrap").css("justify-content", "center").css("align-items", "center").css("overflow", "hidden").css("margin-top", "5px").css("margin-bottom", "5px");
+scheduleSection.css("width", "100%").css("font", bodyFont).css("display", "flex").css("flex-flow", "column wrap").css("justify-content", "center").css("align-items", "center").css("overflow", "hidden").css("margin-top", "5px").css("margin-bottom", "5px").css("gap", "5px");
 footerEl.css("width", "100%").css("background-color", blue);
 footerText.css("color", orange).css("font", headingFont).css("font-size", "max(1vw, 10px").css("padding", "10px");
 
@@ -77,8 +77,9 @@ $(document).ready(function() {
         var saveBox = $("<section>").appendTo(timeBlock).css("width", "25vw").css("padding", "5px").css("height", "100%").css("color", orange);
 
         var saveButton = $("<button>").appendTo(saveBox).text("💾").css("background", orange).css("border-radius", "5px").css("border", "0px").css("padding", "10px");
-
+        saveButton.hide();
         eventBox.on("keydown paste", function(event) {
+            saveButton.show();
             if($(this).text().length === 30 && event.keyCode != 8) {
             event.preventDefault();
             };
@@ -95,13 +96,14 @@ $(document).ready(function() {
         } else {
             eventBox.css("background-color", lightOrange);
         }
-
+        
         // Save Button Event Listener
         saveButton.click(function() {
             var content = $("#"+element);
             var text = content.text();
             localStorage.setItem("toDo " + monthDay + " @ " + element, text);
             console.log("text for hour " + element + ": " + text);
+            saveButton.hide();
             });
     
         //Looks for previous values in local storage
