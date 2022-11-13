@@ -1,7 +1,7 @@
 # Garfield Daily Scheduler
 
 ## Description
- 
+ This project provides a simple, straightforward daily planner for a typical work schedule. The motivation is to create something easy to use so one can focus instead on the work tasks they are logging. When the user clicks on the box beside the hour, they can type in a short description of their task (30 characters max). When they start typing, a save button will appear, which will log their task and save it to local storage so the user can leave and return to the page throughout the day. Finally, the interface is responsive so the user can access it from a variety of different devices.
 
 ## Table of Contents
 
