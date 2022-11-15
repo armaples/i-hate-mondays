@@ -49,7 +49,7 @@ headerEl.css("width", "100%").css("background-color", blue).css("display", "flex
 title.css("padding", "10px").css("font", headingFont).css("color", orange);
 day.css("font", headingFont).css("font-size", "max(4vw, 25px");
 date.css("font", headingFont).css("font-size", "max(3vw, 15px");
-mainEl.css("width", "100%").css("height", "100%");
+mainEl.css("width", "100%").css("height", "100%").css("margin-bottom", "50px");
 dateSection.css("padding", "10px").css("background-color", orange).css("color", blue);
 scheduleSection.css("width", "100%").css("font", bodyFont).css("display", "flex").css("flex-flow", "column wrap").css("justify-content", "space-between").css("align-items", "stretch").css("overflow", "hidden").css("margin-top", "10px").css("margin-bottom", "10px").css("gap", "5px");
 footerEl.css("width", "100%").css("background-color", blue);
